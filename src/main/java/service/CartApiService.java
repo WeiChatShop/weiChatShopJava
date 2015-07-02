@@ -1,14 +1,19 @@
 package service;
 
 import apis.CartApi;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by xiaoming on 2015/7/2.
  */
+@Service("cartApiService")
 public class CartApiService implements CartApi {
+    @Resource
+    private MysqlClient mysqlClient;
     /**
      * 购物车列表
      *
@@ -17,7 +22,11 @@ public class CartApiService implements CartApi {
      */
     @Override
     public List<Map<String, Object>> cartList(String uid) {
-        return null;
+        String sqlForCartList =
+                "select bc.id,bc.uid,bc.book_id,bc.num,bc.should_pay,bi.price,bi.path,bi.name,bi.describe" +
+                " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment<=0";
+        List<Map<String, Object>> cartList = mysqlClient.queryList(sqlForCartList,new Object[]{uid});
+        return cartList;
     }
 
     /**

@@ -80,9 +80,10 @@ public class MysqlClient {
     /**
      * 数据库查询，返回原生结果集list<map>
      * @param sql
+     * @param objects
      * @return
      */
-    public List queryList(String sql) {
+    public List queryList(String sql, Object[] objects) {
         return jdbcTemplate.queryForList(sql);
     }
 }

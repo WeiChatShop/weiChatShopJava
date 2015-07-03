@@ -20,7 +20,7 @@ public class MysqlClient {
     @Resource
     private JdbcTemplate jdbcTemplate;
     /**
-     * 数据库增删改，参数为对象数组
+     * 鏁版嵁搴撳鍒犳敼锛屽弬鏁颁负瀵硅薄鏁扮粍
      * @param sql
      * @param args
      * @return
@@ -31,7 +31,7 @@ public class MysqlClient {
     }
 
     /**
-     * 数据库增加后返回主键
+     * 鏁版嵁搴撳鍔犲悗杩斿洖涓婚敭
      * @param preparedStatementCreator
      * @return
      */
@@ -43,7 +43,7 @@ public class MysqlClient {
 
 
     /**
-     * 数据库查询，返回结果集List
+     * 鏁版嵁搴撴煡璇紝杩斿洖缁撴灉闆哃ist
      * @param sql
      * @param args
      * @return
@@ -53,7 +53,7 @@ public class MysqlClient {
     }
 
     /**
-     * 数据库查询，返回结果集Map
+     * 鏁版嵁搴撴煡璇紝杩斿洖缁撴灉闆哅ap
      * @param sql
      * @param args
      * @return
@@ -78,12 +78,11 @@ public class MysqlClient {
     }
 
     /**
-     * 数据库查询，返回原生结果集list<map>
+     * 鏁版嵁搴撴煡璇紝杩斿洖鍘熺敓缁撴灉闆唋ist<map>
      * @param sql
-     * @param objects
      * @return
      */
-    public List queryList(String sql, Object[] objects) {
+    public List queryList(String sql) {
         return jdbcTemplate.queryForList(sql);
     }
 }

@@ -5,53 +5,57 @@ import java.util.Map;
 
 /**
  * Created by xiaoming on 2015/7/2.
- * ¹ºÎï³µAPI
+ * è´­ç‰©è½¦API
  */
 public interface CartApi {
     /**
-     * ¹ºÎï³µÁĞ±í
+     * è´­ç‰©è½¦åˆ—è¡¨
      * @param uid
      * @return
      */
     List<Map<String,Object>> cartList(String uid);
     /**
-     * ¹ºÎï¼ÇÂ¼ÁĞ±í
+     * è´­ç‰©è®°å½•åˆ—è¡¨
      * @param uid
      * @return
      */
     List<Map<String,Object>> cartHistoryList(String uid);
     /**
-     * ÊÕ»õÈËĞÅÏ¢±£´æ,Í¬Ê±Ôö¼ÓÊÕ»õÈËµØÖ·Ò²¿ÉÒÔÓÃµ½
+     * æ”¶è´§äººä¿¡æ¯ä¿å­˜,åŒæ—¶å¢åŠ æ”¶è´§äººåœ°å€ä¹Ÿå¯ä»¥ç”¨åˆ°
      * @param param
      * @return
      */
     boolean userInfoHold(Map<String,Object> param);
 
     /**
-     * ¹ºÎï³µ±à¼­,°üÀ¨É¾³ı
+     * è´­ç‰©è½¦ç¼–è¾‘,åŒ…æ‹¬åˆ é™¤
      * @param param
      * @return
      */
     boolean cartEdit(Map<String,Object> param);
 
     /**
-     * Ñ¡ÔñÊÕ»õÈËµØÖ·
+     * é€‰æ‹©æ”¶è´§äººåœ°å€
      * @param id
      * @return
      */
-    boolean chooseAddr(int id);
+    boolean chooseAddr(int id,String uid);
 
     /**
-     * ÊÕ»õÈËµØÖ·ÁĞ±í
+     * æ”¶è´§äººåœ°å€åˆ—è¡¨
      * @return
      */
-    List<Map<String,Object>> userAddrList();
+    List<Map<String,Object>> userAddrList(String uid);
 
     /**
-     * Ö§¸¶,¸üĞÂaccount_log±í
+     * æ”¯ä»˜,æ›´æ–°account_logè¡¨
      * @param param
      * @return
      */
     boolean pay(Map<String,Object> param);
 
+    /**
+     *æ›´æ–°è´­ç‰©è½¦æ”¯ä»˜ä¿¡æ¯
+     */
+    boolean updateCartPayment(String uid,int cart_id,double payment);
 }

@@ -5,31 +5,31 @@ import java.util.Map;
 
 /**
  * Created by xiaoming on 2015/7/2.
- * Ò³ÃæÕ¹Ê¾µÄÊı¾İAPI
+ * é¡µé¢å±•ç¤ºçš„æ•°æ®API
  */
 public interface BookShowApi {
     /**
-     * ±¾ÖÜÍÆ¼öÍ¼Êé
+     * æœ¬å‘¨æ¨èå›¾ä¹¦
      * @return
      */
     Map<String,Object> thisWeekHotBook();
 
     /**
-     * Í¼Êé·ÖÀàÏÔÊ¾
+     * å›¾ä¹¦åˆ†ç±»æ˜¾ç¤º
      * @param id
      * @return
      */
     List<Map<String,Object>> classifyBookList(int id);
 
     /**
-     * ÏÔÊ¾Ò»±¾ÊéµÄ¾ßÌåĞÅÏ¢
+     * æ˜¾ç¤ºä¸€æœ¬ä¹¦çš„å…·ä½“ä¿¡æ¯
      * @param id
      * @return
      */
     Map<String,Object> showOneBook(int id);
 
     /**
-     * Ê×Ò³ÏÔÊ¾Ö÷ÒªÊÇ·ÖÀàºÍ¾ßÌå·ÖÀàµØÖ·,·ÖÀàÂÖ²¥Í¼
+     * é¦–é¡µæ˜¾ç¤ºä¸»è¦æ˜¯åˆ†ç±»å’Œå…·ä½“åˆ†ç±»åœ°å€,åˆ†ç±»è½®æ’­å›¾
      * @return
      */
     List<Map<String,Object>> homeShowList();

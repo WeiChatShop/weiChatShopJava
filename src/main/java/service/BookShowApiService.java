@@ -15,7 +15,7 @@ public class BookShowApiService implements BookShowApi{
     @Resource
     private MysqlClient mysqlClient;
     /**
-     * ±¾ÖÜÍÆ¼öÍ¼Êé
+     * æœ¬å‘¨æ¨èå›¾ä¹¦
      *
      * @return
      */
@@ -29,7 +29,7 @@ public class BookShowApiService implements BookShowApi{
     }
 
     /**
-     * Í¼Êé·ÖÀàÏÔÊ¾,¸÷¸öÀàµÄÁĞ±í
+     * å›¾ä¹¦åˆ†ç±»æ˜¾ç¤º,å„ä¸ªç±»çš„åˆ—è¡¨
      *
      * @param id
      * @return
@@ -38,14 +38,14 @@ public class BookShowApiService implements BookShowApi{
     public List<Map<String, Object>> classifyBookList(int id) {
         String sqlForBookList =
                 "select `id`, `name`,`describe` ,path,hot, `classify_id`," +
-                "(select name from book_class bc where bi.classify_id=bc.id ) classify_name," +
-                " `price`, `freight`  from `book_info` bi where status=1 and classify_id=?";
-        List<Map<String, Object>> bookList = mysqlClient.queryList(sqlForBookList,new Object[]{id});
+                        "(select name from book_class bc where bi.classify_id=bc.id ) classify_name," +
+                        " `price`, `freight`  from `book_info` bi where status=1 and classify_id=?";
+        List<Map<String, Object>> bookList = mysqlClient.queryForList(sqlForBookList,new Object[]{id});
         return bookList;
     }
 
     /**
-     * ÏÔÊ¾Ò»±¾ÊéµÄ¾ßÌåĞÅÏ¢
+     * æ˜¾ç¤ºä¸€æœ¬ä¹¦çš„å…·ä½“ä¿¡æ¯
      *
      * @param id
      * @return
@@ -60,7 +60,7 @@ public class BookShowApiService implements BookShowApi{
     }
 
     /**
-     * Ê×Ò³ÏÔÊ¾Ö÷ÒªÊÇ·ÖÀàºÍ¾ßÌå·ÖÀàµØÖ·,·ÖÀàÂÖ²¥Í¼
+     * é¦–é¡µæ˜¾ç¤ºä¸»è¦æ˜¯åˆ†ç±»å’Œå…·ä½“åˆ†ç±»åœ°å€,åˆ†ç±»è½®æ’­å›¾
      *
      * @return
      */
@@ -68,8 +68,8 @@ public class BookShowApiService implements BookShowApi{
     public List<Map<String, Object>> homeShowList() {
         String sqlForHomeShowList =
                 "select `id`, `name`,`describe` ,path,hot, `classify_id`, " +
-                "(select name from book_class bc where bi.classify_id=bc.id ) classify_name, " +
-                "`price`, `freight`  from `book_info` bi where status=1";
+                        "(select name from book_class bc where bi.classify_id=bc.id ) classify_name, " +
+                        "`price`, `freight`  from `book_info` bi where status=1";
         return null;
     }
 }

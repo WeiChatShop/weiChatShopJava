@@ -1,9 +1,12 @@
 package service;
 
 import apis.CartApi;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Service;
+import utils.DateUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +18,7 @@ public class CartApiService implements CartApi {
     @Resource
     private MysqlClient mysqlClient;
     /**
-     * ¹ºÎï³µÁĞ±í
+     * è´­ç‰©è½¦åˆ—è¡¨,å·²åŠ å…¥è´­ç‰©è½¦,å°šæœªä»˜æ¬¾
      *
      * @param uid
      * @return
@@ -24,73 +27,142 @@ public class CartApiService implements CartApi {
     public List<Map<String, Object>> cartList(String uid) {
         String sqlForCartList =
                 "select bc.id,bc.uid,bc.book_id,bc.num,bc.should_pay,bi.price,bi.path,bi.name,bi.describe" +
-                " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment<=0";
-        List<Map<String, Object>> cartList = mysqlClient.queryList(sqlForCartList,new Object[]{uid});
+                        " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment<=0";
+        List<Map<String, Object>> cartList = mysqlClient.queryForList(sqlForCartList,new Object[]{uid});
         return cartList;
     }
 
     /**
-     * ¹ºÎï¼ÇÂ¼ÁĞ±í
+     * è´­ç‰©è®°å½•åˆ—è¡¨
      *
      * @param uid
      * @return
      */
     @Override
     public List<Map<String, Object>> cartHistoryList(String uid) {
-        return null;
+        String sqlForCartHisList =
+                "select bc.id,bc.uid,bc.book_id,bc.num,bc.should_pay,bi.price,bi.path,bi.name,bi.describe,bc.payment" +
+                        " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment>0";
+        List<Map<String, Object>> cartHisList = mysqlClient.queryForList(sqlForCartHisList,new Object[]{uid});
+        return cartHisList;
     }
 
     /**
-     * ÊÕ»õÈËĞÅÏ¢±£´æ,Í¬Ê±Ôö¼ÓÊÕ»õÈËµØÖ·Ò²¿ÉÒÔÓÃµ½
-     *
+     * æ”¶è´§äººä¿¡æ¯ä¿å­˜,åŒæ—¶å¢åŠ æ”¶è´§äººåœ°å€ä¹Ÿå¯ä»¥ç”¨åˆ°
+     * æ”¶è´§äººä¿¡æ¯åŒ…æ‹¬
      * @param param
      * @return
      */
     @Override
     public boolean userInfoHold(Map<String, Object> param) {
-        return false;
+        List paramList = new ArrayList();
+
+        paramList.add(MapUtils.getString(param,"uid",""));
+        paramList.add(MapUtils.getString(param,"name",""));
+        paramList.add(MapUtils.getString(param,"phone",""));
+        paramList.add(MapUtils.getString(param,"province",""));
+        paramList.add(MapUtils.getString(param,"city",""));
+        paramList.add(MapUtils.getString(param,"detail_addr",""));
+        paramList.add(MapUtils.getString(param,"addip","127.0.0.1"));
+        paramList.add(DateUtils.getCurrentTimestamp());
+        paramList.add(MapUtils.getString(param,"require",""));
+        paramList.add(MapUtils.getString(param,"postalcode",""));
+        String sqlSaveUser = "insert into `user_info`(`uid`,`name`,`phone`,`province`," +
+                "`city`,`detail_addr`,`addip`,`addtime`,`require`,`postalcode`) values(?,?,?,?,?,?,?,?,?,?)";
+        int s = mysqlClient.update(sqlSaveUser,paramList.toArray());
+        return s!=0;
     }
 
     /**
-     * ¹ºÎï³µ±à¼­,°üÀ¨É¾³ı
+     * è´­ç‰©è½¦ç¼–è¾‘,åŒ…æ‹¬åˆ é™¤
      *
      * @param param
      * @return
      */
     @Override
     public boolean cartEdit(Map<String, Object> param) {
-        return false;
+
+        double price = bookPrice(MapUtils.getIntValue(param,"book_id",0));
+        double shouldPay = price*MapUtils.getIntValue(param,"book_num",1);
+
+        List paramList = new ArrayList();
+        paramList.add(MapUtils.getIntValue(param, "book_num", 1));
+        paramList.add(shouldPay);
+        paramList.add(MapUtils.getString(param,"addip"));
+        paramList.add(DateUtils.getCurrentTimestamp());
+        paramList.add(MapUtils.getString(param,"uid"));
+        paramList.add(MapUtils.getString(param, "id"));
+        String sqlCartEdit =
+                "update book_cart set num=?,should_pay=?,addip=?,addtime=?," +
+                        "where payment<=0 and uid=? and id=?";
+        int s = mysqlClient.update(sqlCartEdit,paramList.toArray());
+        return s!=0;
     }
 
     /**
-     * Ñ¡ÔñÊÕ»õÈËµØÖ·
+     * é€‰æ‹©æ”¶è´§äººåœ°å€
      *
      * @param id
      * @return
      */
     @Override
-    public boolean chooseAddr(int id) {
-        return false;
+    public boolean chooseAddr(int id,String uid) {
+        String sqlSetDefAddr = "update user_info set status=0 where status=1 and uid=?";
+        String sqlNewAddr = "update user_info set status=1 where id=? and uid=?";
+        mysqlClient.update(sqlSetDefAddr, new Object[]{uid});
+        int s = mysqlClient.update(sqlNewAddr, new Object[]{id, uid});
+        return s!=0;
     }
 
     /**
-     * ÊÕ»õÈËµØÖ·ÁĞ±í
+     * æ”¶è´§äººåœ°å€åˆ—è¡¨
      *
      * @return
      */
     @Override
-    public List<Map<String, Object>> userAddrList() {
-        return null;
+    public List<Map<String, Object>> userAddrList(String uid) {
+        String sqlForAddrList = "select id,uid,name,phone,province,city,detail_addr where uid=? ";
+        List<Map<String, Object>> addrList = mysqlClient.queryForList(sqlForAddrList, new Object[]{uid});
+        return addrList;
     }
 
     /**
-     * Ö§¸¶,¸üĞÂaccount_log±í
+     * æ”¯ä»˜,æ›´æ–°account_logè¡¨
      *
      * @param param
      * @return
      */
     @Override
     public boolean pay(Map<String, Object> param) {
+        String sqlInsertPay = "insert into user_info(uid,pay,cart_id,paytime,payip) values(?,?,?,?,?,?)";
+        boolean updateCartStatus = updateCartPayment(MapUtils.getString(param, "uid"), MapUtils.getIntValue(param, "cart_id"), MapUtils.getDoubleValue(param, "pay"));
+        if (updateCartStatus) {
+            mysqlClient.update(sqlInsertPay, new Object[]{
+                    MapUtils.getString(param, "uid"),
+                    MapUtils.getDoubleValue(param, "pay"),
+                    MapUtils.getIntValue(param, "cart_id"),
+                    DateUtils.getCurrentTimestamp(),
+                    MapUtils.getString(param, "payip")
+            });
+        }
+        return updateCartStatus;
+    }
+
+    /**
+     * @param uid
+     * @param cart_id
+     */
+    @Override
+    public boolean updateCartPayment(String uid, int cart_id,double payment) {
+        String sql = "update book_cart set payment=? where cart_id=? and uid=? and payment<=0 and should_pay<=? ";
+        int s = mysqlClient.update(sql, new Object[]{payment, cart_id, uid, payment});
         return false;
     }
+
+    public double bookPrice(int id){
+        String sql = "select price from book_info where id=? and status=1";
+        Map<String,Object> priceMap = mysqlClient.queryForMap(sql,new Object[]{id});
+        return MapUtils.getDoubleValue(priceMap,"price",0.0);
+    }
+
 }

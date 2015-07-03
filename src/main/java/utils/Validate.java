@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
  */
 public class Validate {
     /**
-     * @param regex ÕıÔò±í´ïÊ½×Ö·û´®
-     * @param str   ÒªÆ¥ÅäµÄ×Ö·û´®
-     * @return Èç¹ûstr ·ûºÏ regexµÄÕıÔò±í´ïÊ½¸ñÊ½,·µ»Øtrue, ·ñÔò·µ»Ø false;
+     * @param regex æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸²
+     * @param str   è¦åŒ¹é…çš„å­—ç¬¦ä¸²
+     * @return å¦‚æœstr ç¬¦åˆ regexçš„æ­£åˆ™è¡¨è¾¾å¼æ ¼å¼,è¿”å›true, å¦åˆ™è¿”å› false;
      */
     private static boolean match(String regex, String str) {
         Pattern pattern = Pattern.compile(regex);
@@ -19,7 +19,7 @@ public class Validate {
         return matcher.matches();
     }
     /**
-     * ÊÇ·ñÊÇmd5µÄÃÜÂë
+     * æ˜¯å¦æ˜¯md5çš„å¯†ç 
      * @param str
      * @return
      */
@@ -29,17 +29,17 @@ public class Validate {
     }
 
     /**
-     * ÑéÖ¤µÄÕıÕûÊı
+     * éªŒè¯çš„æ­£æ•´æ•°
      *
-     * @param str ´ıÑéÖ¤µÄ×Ö·û´®
-     * @return Èç¹ûÊÇ·ûºÏ¸ñÊ½µÄ×Ö·û´®, ·µ»Ø <b>true </b>,·ñÔòÎª <b>false </b>
+     * @param str å¾…éªŒè¯çš„å­—ç¬¦ä¸²
+     * @return å¦‚æœæ˜¯ç¬¦åˆæ ¼å¼çš„å­—ç¬¦ä¸², è¿”å› <b>true </b>,å¦åˆ™ä¸º <b>false </b>
      */
     public static boolean IsIntNumbers(String str) {
         String regex = "^//d*[1-9]//d*$";
         return match(regex, str);
     }
     /**
-     * ÊÖ»úºÅÂëÑéÖ¤
+     * æ‰‹æœºå·ç éªŒè¯
      * @author zhaomingwei
      * @param phone
      * @return
@@ -50,15 +50,15 @@ public class Validate {
     }
 
     /**
-     * ÑéÖ¤ÓÃ»§ÃûµÄ¸ñÊ½ºÍ³¤¶È
+     * éªŒè¯ç”¨æˆ·åçš„æ ¼å¼å’Œé•¿åº¦
      * @author zhaomingwei
      *
      */
     public static boolean validateUsername(String username){
-        String validateStr = "^[\\w\\-£­£ß\\d\u4e00-\u9fa5\uFF21-\uFF3A\uFF41-\uFF5A]+$";
+        String validateStr = "^[\\w\\-ï¼ï¼¿\\d\u4e00-\u9fa5\uFF21-\uFF3A\uFF41-\uFF5A]+$";
         boolean rs = false;
         rs = match(validateStr, username);
-        //ÅĞ¶ÏÊÇ·ñÈ«ÎªÊı×Ö
+        //åˆ¤æ–­æ˜¯å¦å…¨ä¸ºæ•°å­—
         boolean isnum = false;
         String validateNum = "^[\\d]+$";
         isnum=match(validateNum,username);
@@ -81,10 +81,10 @@ public class Validate {
     }
 
     /**
-     * ÑéÖ¤ÓÊÏä
+     * éªŒè¯é‚®ç®±
      *
-     * @param str ´ıÑéÖ¤µÄ×Ö·û´®
-     * @return Èç¹ûÊÇ·ûºÏµÄ×Ö·û´®, ·µ»Ø <b>true </b>,·ñÔòÎª <b>false </b>
+     * @param str å¾…éªŒè¯çš„å­—ç¬¦ä¸²
+     * @return å¦‚æœæ˜¯ç¬¦åˆçš„å­—ç¬¦ä¸², è¿”å› <b>true </b>,å¦åˆ™ä¸º <b>false </b>
      */
     public static boolean isEmail(String str) {
         String regex = "^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}$";

@@ -10,6 +10,6 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 *.class
-.DS_Store
 *.iml
 .idea/*
+mysql.properties

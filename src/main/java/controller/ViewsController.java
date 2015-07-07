@@ -17,6 +17,6 @@ public class ViewsController {
 
     @RequestMapping("/")
     public String hello(){
-        return "hello";
+        return "home/index";
     }
 }

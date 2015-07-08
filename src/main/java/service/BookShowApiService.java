@@ -70,6 +70,7 @@ public class BookShowApiService implements BookShowApi{
                 "select `id`, `name`,`describe` ,path,hot, `classify_id`, " +
                         "(select name from book_class bc where bi.classify_id=bc.id ) classify_name, " +
                         "`price`, `freight`  from `book_info` bi where status=1";
-        return null;
+        List<Map<String,Object>> indexBookList = mysqlClient.queryForList(sqlForHomeShowList, new Object[]{});
+        return indexBookList;
     }
 }

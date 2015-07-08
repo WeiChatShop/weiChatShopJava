@@ -1,6 +1,8 @@
 package controller;
 
+import apis.BookShowApi;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -13,10 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ViewsController {
 
     @Resource
+    private BookShowApi bookShowApi;
+    @Resource
     private HttpServletRequest request;
 
     @RequestMapping("/")
-    public String hello(){
+    public String index(Model model){
         return "home/index";
     }
 }

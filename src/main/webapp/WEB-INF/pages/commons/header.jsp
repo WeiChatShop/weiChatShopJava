@@ -8,8 +8,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <nav class="bookindex">
   <ul>
-    <li><a href="/"><span class="glyphicon glyphicon-home"> 书虫书苑</span></a></li>
-    <li><a href="/"><span  class="glyphicon glyphicon-flag">本周热门</span></a></li>
-    <li><a href="/cart" target="_self"><span class="glyphicon glyphicon-shopping-cart">我的购物车</span></a></li>
+    <li><a href="/" class="glyphicon glyphicon-home"> 书虫书苑</a></li>
+    <li><a href="/" class="glyphicon glyphicon-flag"> 本周热门</a></li>
+    <li><a href="/" target="_self" class="glyphicon glyphicon-shopping-cart">我的购物车</a></li>
   </ul>
 </nav>

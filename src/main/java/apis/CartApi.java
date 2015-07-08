@@ -1,5 +1,7 @@
 package apis;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import java.util.Map;
  * Created by xiaoming on 2015/7/2.
  * 购物车API
  */
+@Repository
 public interface CartApi {
     /**
      * 购物车列表

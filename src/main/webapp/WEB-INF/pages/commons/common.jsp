@@ -17,7 +17,6 @@
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="../../../script/jquery-1.11.1.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<link href="/style/weixin.css" rel="stylesheet"/>
-<script src="/script/jquery-1.11.1.min.js"></script>
-<script src="/script/public-model.js"></script>
+<link href="../../../style/weixin.css" rel="stylesheet"/>

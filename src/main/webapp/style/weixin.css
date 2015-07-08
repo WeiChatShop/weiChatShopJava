@@ -1,10 +1,48 @@
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video
 { margin:0;padding:0;outline:0;font-size:100%;font:inherit;vertical-align:baseline;}
+address, caption, cite, code, dfn,em, strong, th, var, optgroup{font-style:normal;font-weight:normal;}
+h1, h2, h3, h4, h5, h6,abbr,acronym{ font-weight:normal;}
+input,button,textarea,select,optgroup,option{ font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button,textarea,select{font-size:100%;}
+input[type="text"],input[type="password"],textarea{ outline-style:none;-webkit-appearance:none;}
+textarea{resize:none;}
+ol,ul{ list-style:none;}
+table{ border-collapse:collapse;border-spacing:0;}
+caption,th{ text-align:left;}
+blockquote,q{ quotes:none;}
+:focus{ outline:none;}
+img{ border:none;}
+blockquote:before,blockquote:after,q:before,q:after{ content:'';content:none;}
+body{ font-family:"Microsoft Yahei"; background:#f8f8f8; color: #333; height:100%; font-size: 28px; overflow-x:hidden;}
+/*box*/
+.box{
+    min-width: 640px;
+    /* [disabled]margin:0 auto; */
+}
+.tab-box .hidden{ display: none; }
+.box-index{ padding-top: 80px;}
 .bookindex{ position: fixed; left: 0; top: 0; width: 100%; height: 80px; background: #4AA6CA; overflow: hidden;}
 .bookindex ul{ width: 641px;}
 .bookindex li{ float: left; display: inline; width:33%; height: 80px; line-height: 80px; border-left: solid 1px #d3d3d3;}
 .bookindex li.select{ background:#ff9900}
-.bookindex li a{ display: block; text-align: center; width: 100%; height: 100%; color: #fff;}
+.bookindex li a{ text-align: center; width: 100%; height: 100%; color: #fff;}
 a{
     text-decoration: none;
+}a:hover{
+    text-decoration: none;
+    color:#FAD160;
 }
+a.image-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 60%;
+    overflow: hidden;
+}
+
+a.image-container img {
+    width: 80%;
+    height:auto;
+}
+.detail{float:right;}
+#computerItem{font-color:black;}
+#artBookItem{font-color:black;}

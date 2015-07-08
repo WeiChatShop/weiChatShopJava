@@ -1,5 +1,7 @@
 package apis;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import java.util.Map;
  * Created by xiaoming on 2015/7/2.
  * 页面展示的数据API
  */
+@Repository
 public interface BookShowApi {
     /**
      * 本周推荐图书

@@ -37,9 +37,8 @@ public class BookShowApiService implements BookShowApi{
     @Override
     public List<Map<String, Object>> classifyBookList(int id) {
         String sqlForBookList =
-                "select `id`, `name`,`describe` ,path,hot, `classify_id`," +
-                        "(select name from book_class bc where bi.classify_id=bc.id ) classify_name," +
-                        " `price`, `freight`  from `book_info` bi where status=1 and classify_id=?";
+                "select bi.`id`, bi.`name`,bi.`describe` ,bi.path,bi.hot, bi.`classify_id`,bc.name classifyname,bc.describe classifydesc," +
+                " bi.`price`, bi.`freight`  from `book_info` bi left join book_class bc on(bi.classify_id=bc.id) where bi.status=1 and bi.classify_id=?";
         List<Map<String, Object>> bookList = mysqlClient.queryForList(sqlForBookList,new Object[]{id});
         return bookList;
     }
@@ -52,9 +51,9 @@ public class BookShowApiService implements BookShowApi{
      */
     @Override
     public Map<String, Object> showOneBook(int id) {
-        String sqlForOneBook = "SELECT `id`, `name`,`describe`,`list`, `path`, `stock`, " +
-                " `sell`, `hot`, `classify_id`,(select name from book_class bc where bi.classify_id=bc.id ), `price`, `freight`  FROM `book_info` bi" +
-                " where status=1 limit 0,1";
+        String sqlForOneBook = "SELECT bi.`id`, bi.`name`,bi.`describe`,bi.`list`, bi.`path`, bi.`stock`, " +
+                " bi.`sell`, bi.`hot`, bi.`classify_id`, bi.`price`, bi.`freight`,bc.id classify_id,bc.name classify_name " +
+                "  FROM `book_info` bi left join book_class bc on(bi.classify_id=bc.id) where bi.status=1 and bi.id=? ";
         Map<String,Object> oneBookInfo = mysqlClient.queryForMap(sqlForOneBook,new Object[]{id});
         return oneBookInfo;
     }

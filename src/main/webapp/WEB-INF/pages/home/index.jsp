@@ -20,10 +20,14 @@
 <body>
 <%@include file="../commons/common.jsp" %>
 <%@include file="../commons/header.jsp" %>
-<div class="box box-index" onload="buildHtml(${indexBookList})">
+<div class="box box-index">
+  <div id="welcome">
+    <span class="glyphicon glyphicon-tree-conifer" style="color: rgb(255, 140, 60);"></span>欢迎来到书虫书苑,作为有理想的凡人,
+      你有责任为自己的未来买一本实用的工具书,本店拥有全网最好的技术书籍,和最有情怀的文学艺术作品,祝您登上人生巅峰<span class="glyphicon glyphicon-tower" style="color: rgb(255, 140, 60);"></span>
+  </div>
   <div id="computer" style="padding-top:10px;padding-bottom: 10px">
     <a class="glyphicon glyphicon-phone" id="comTitle">计算机图书</a>
-    <a class="detail">查看详细<i class="glyphicon glyphicon-chevron-right"></i></a>
+    <a class="detail" href="/classify?type=1">查看详细<i class="glyphicon glyphicon-chevron-right"></i></a>
   </div>
     <div id="computerBook" class="carousel slide">
       <ol class="carousel-indicators" id="computerLi">
@@ -37,7 +41,7 @@
     </div>
   <div id="art" style="padding-top:10px;padding-bottom: 10px">
     <a class="glyphicon glyphicon-book" id="artTitle">文学艺术图书</a>
-    <a class="detail">查看详细<i class="glyphicon glyphicon-chevron-right"></i></a>
+    <a class="detail" href="/classify?type=2">查看详细<i class="glyphicon glyphicon-chevron-right"></i></a>
   </div>
   <div id="artBook" class="carousel slide">
       <ol class="carousel-indicators" id="artBookLi">

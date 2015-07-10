@@ -103,3 +103,26 @@ a.image-container img {
 {
     font-size: 20px;
 }
+.price{
+    color:#FF6B39;
+    font-size:30px;
+    margin-top: 3px;
+    margin-bottom:3px;
+    border-style:solid;
+    border-width:1px;
+}
+.home{
+    color:#000;
+    font-size:30px;
+    margin-top: 3px;
+    margin-bottom:3px;
+    border-style:solid;
+    border-width:1px;
+}
+.btn1{
+position: fixed; left: 10%; bottom: 20px; width: 30%; height: 50px; background: #9CF700; overflow: hidden;z-index:100;
+}
+.btn2{
+    margin-left:10%;
+    position: fixed; left: 50%; bottom: 20px; width: 30%; height: 50px; background: #5BB85D; overflow: hidden;z-index:100;
+}

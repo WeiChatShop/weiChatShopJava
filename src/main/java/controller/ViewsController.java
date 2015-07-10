@@ -41,4 +41,10 @@ public class ViewsController {
         model.addAttribute("oneBook",oneBook);
         return "home/oneBook";
     }
+    @RequestMapping("/hotBook")
+    public String hotBook(Model model) {
+        Map<String, Object> oneBook =  bookShowApi.thisWeekHotBook();
+        model.addAttribute("oneBook",oneBook);
+        return "home/oneBook";
+    }
 }

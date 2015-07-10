@@ -9,7 +9,7 @@
 <nav class="bookindex">
   <ul>
     <li><a href="/" class="glyphicon glyphicon-home"> 书虫书苑</a></li>
-    <li><a href="/" class="glyphicon glyphicon-flag"> 本周热门</a></li>
+    <li><a href="/hotBook" class="glyphicon glyphicon-flag"> 本周热门</a></li>
     <li><a href="/" target="_self" class="glyphicon glyphicon-shopping-cart">我的购物车</a></li>
   </ul>
 </nav>

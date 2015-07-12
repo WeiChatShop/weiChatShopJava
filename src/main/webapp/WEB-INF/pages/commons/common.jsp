@@ -11,7 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- 可选的Bootstrap主题文件（一般不使用） -->
 <%--<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css"></script>--%>
 

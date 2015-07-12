@@ -53,6 +53,7 @@
       <a class="carousel-control left" href="#artBook" data-slide="prev">&lsaquo;</a>
       <a class="carousel-control right" href="#artBook" data-slide="next">&rsaquo;</a>
     </div>
+  <%@include file="../commons/footer.jsp" %>
 </div>
 </body>
 </html>

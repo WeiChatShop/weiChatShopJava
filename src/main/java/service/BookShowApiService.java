@@ -21,7 +21,7 @@ public class BookShowApiService implements BookShowApi{
      */
     @Override
     public Map<String, Object> thisWeekHotBook() {
-        String sqlForHotBook ="SELECT bi.`id`, bi.`name`,bi.`describe`,bi.`list`, bi.`path`, bi.`stock`, " +
+        String sqlForHotBook ="SELECT bi.`id`, bi.`name`,bi.`describe`,bi.prelist,bi.`list`, bi.`path`, bi.`stock`, " +
                 " bi.`sell`, bi.`hot`, bi.`classify_id`, bi.`price`, bi.`freight`,bc.id classify_id,bc.name classify_name " +
                 "  FROM `book_info` bi left join book_class bc on(bi.classify_id=bc.id) where bi.status=1 and bi.hot=1 limit 1";
         Map<String,Object> hotBookInfo = mysqlClient.queryForMap(sqlForHotBook,null);
@@ -51,7 +51,7 @@ public class BookShowApiService implements BookShowApi{
      */
     @Override
     public Map<String, Object> showOneBook(int id) {
-        String sqlForOneBook = "SELECT bi.`id`, bi.`name`,bi.`describe`,bi.`list`, bi.`path`, bi.`stock`, " +
+        String sqlForOneBook = "SELECT bi.`id`, bi.`name`,bi.`describe`,bi.prelist,bi.`list`, bi.`path`, bi.`stock`, " +
                 " bi.`sell`, bi.`hot`, bi.`classify_id`, bi.`price`, bi.`freight`,bc.id classify_id,bc.name classify_name " +
                 "  FROM `book_info` bi left join book_class bc on(bi.classify_id=bc.id) where bi.status=1 and bi.id=? ";
         Map<String,Object> oneBookInfo = mysqlClient.queryForMap(sqlForOneBook,new Object[]{id});

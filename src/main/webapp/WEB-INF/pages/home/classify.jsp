@@ -23,5 +23,6 @@
 <div class="box box-index" id="classify_page">
 
 </div>
+<%@include file="../commons/footer.jsp" %>
 </body>
 </html>

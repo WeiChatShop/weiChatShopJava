@@ -10,10 +10,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta content="target-densitydpi=320,width=640,user-scalable=no" name="viewport">
-  <meta content="yes" name="apple-mobile-web-app-capable" />
-  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-  <meta content="telephone=no" name="format-detection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
   <title>书虫书苑</title>
   <script src="../../../js/classify.js"></script>
 </head>

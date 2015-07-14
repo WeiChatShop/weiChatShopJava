@@ -9,10 +9,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta content="target-densitydpi=320,width=640,user-scalable=no" name="viewport">
-  <meta content="yes" name="apple-mobile-web-app-capable" />
-  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-  <meta content="telephone=no" name="format-detection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
   <title>书虫书苑</title>
 </head>
 <body>
@@ -28,9 +28,9 @@
 <div class="abstract"><i class="glyphicon glyphicon-pushpin" style="color:aqua"></i>内容推荐</div>
 <div class="describe">${oneBook.describe}</div>
 <div class="price"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;${oneBook.price}元<span style="float:right">武汉-北京&nbsp;&nbsp;免运费&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-<div style="font-size: 28px;background-color:#f6ffa8">发货时间:一周七天节假日不休</div>
-<div style="font-size: 28px;background-color:#b2ffeb">书苑福利:</div>
-<div style="font-size: 25px">现在购买该套书的顾客均随书赠送资料(和书本配套资料地址发邮箱-拍下请留言备注邮箱),希望赠送的资料对亲们考试有帮助哦！</div>
+<div style="font-size: 16px;background-color:#f6ffa8">发货时间:一周七天节假日不休</div>
+<div style="font-size: 16px;background-color:#b2ffeb">书苑福利:</div>
+<div style="font-size: 14px">现在购买该套书的顾客均随书赠送资料(和书本配套资料地址发邮箱-拍下请留言备注邮箱),希望赠送的资料对亲们考试有帮助哦！</div>
 <div class="home">
    <div>
      <a href="#" class="glyphicon glyphicon-book">书虫书苑的店</a>
@@ -46,14 +46,18 @@
   <span class="listpre">${oneBook.prelist}</span>
   <span class="listpro" style="display:none">${oneBook.list}</span>
 </div>
-<div class="seemorelist" style="margin-bottom:10px"><a type="button" class="btn3" onclick="showList()">
-  <i class="glyphicon glyphicon-chevron-down" id="showList">查看更多目录</i>
-  </a></div>
+  <div class="seemorelist" style="margin-bottom:10px">
+    <a type="button" class="btn3" onclick="showList()">
+    <i class="glyphicon glyphicon-chevron-down" id="showList">查看更多目录</i>
+    </a>
+  </div>
+
   <div class="buybtn">
-    <button type="button" class="btn1" onclick="buyit()">立即购买</button>
+    <button type="button" class="btn1" onclick="buyit(${oneBook.id})">立即购买</button>
     <button type="button" class="btn2">加入购物车</button>
   </div>
 </div>
+
 
 <%@include file="../commons/footer.jsp" %>
 <script src="../../../js/oneBook.js"></script>

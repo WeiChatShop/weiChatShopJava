@@ -36,4 +36,11 @@ public interface BookShowApi {
      * @return
      */
     List<Map<String,Object>> homeShowList();
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Map<String,Object> showBuyIt(int id);
 }

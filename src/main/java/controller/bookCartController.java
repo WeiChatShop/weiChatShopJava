@@ -1,6 +1,8 @@
 package controller;
 
+import apis.BookShowApi;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -13,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 public class bookCartController {
     @Resource
     private HttpServletRequest request;
-    @RequestMapping("/buynow")
-    public String buyNow(){
+    @Resource
+    private BookShowApi bookShowApi;
+    @RequestMapping("/buynow/{id}")
+    public String buyNow(@PathVariable int id){
+        bookShowApi.showOneBook(id);
         return null;
     }
 }

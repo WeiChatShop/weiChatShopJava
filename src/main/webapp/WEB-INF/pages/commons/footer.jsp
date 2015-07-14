@@ -11,4 +11,7 @@
   <span><img src="../../../images/book/erweima/getheadimg.jpg"></span>
   <p style="text-align:center;margin-bottom:10px">长按二维码关注[书虫书苑]的公众账号</p>
   <div style="text-align:center;margin-bottom:30px"><a href="/" class="glyphicon glyphicon-home">书虫书苑首页</a></div>
+  <div style="width:100%">
+    <img class="lastImg" style="width:70%;margin-left:15%;height:auto;" src="../../../images/book/banner/banner.jpg">
+  </div>
 </div>

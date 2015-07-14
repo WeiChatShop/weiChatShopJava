@@ -14,9 +14,9 @@ function showList(){
         $("#showList").addClass("glyphicon glyphicon-chevron-up");
     }
 }
-function buyit(){
+function buyit(id){
     $.ajax({
-        url:"/book/index",
+        url:"/buynow/"+id,
         dataType:'json',
         success:function(data){
         }

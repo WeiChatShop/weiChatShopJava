@@ -72,4 +72,16 @@ public class BookShowApiService implements BookShowApi{
         List<Map<String,Object>> indexBookList = mysqlClient.queryForList(sqlForHomeShowList, new Object[]{});
         return indexBookList;
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Map<String, Object> showBuyIt(int id) {
+        String sqlForOneBook = "SELECT bi.`id`, bi.`name`,bi.`describe`,bi.`path`, bi.`stock`, " +
+         " bi.`sell`, bi.`hot`, bi.`classify_id`, bi.`price`, bi.`freight` FROM `book_info` bi where bi.status=1 and bi.id=? ";
+        Map<String,Object> oneBookInfo = mysqlClient.queryForMap(sqlForOneBook,new Object[]{id});
+        return oneBookInfo;
+    }
 }

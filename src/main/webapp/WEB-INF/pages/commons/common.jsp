@@ -19,4 +19,4 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="../../../script/jquery-1.11.1.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<link href="../../../style/weixin.css" rel="stylesheet"/>
+<link href="../../../style/weixin.css?t=01" rel="stylesheet"/>

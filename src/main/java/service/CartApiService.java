@@ -56,8 +56,6 @@ public class CartApiService implements CartApi {
     @Override
     public boolean userInfoHold(Map<String, Object> param) {
         List paramList = new ArrayList();
-
-        paramList.add(MapUtils.getString(param,"uid",""));
         paramList.add(MapUtils.getString(param,"name",""));
         paramList.add(MapUtils.getString(param,"phone",""));
         paramList.add(MapUtils.getString(param,"province",""));
@@ -65,10 +63,11 @@ public class CartApiService implements CartApi {
         paramList.add(MapUtils.getString(param,"detail_addr",""));
         paramList.add(MapUtils.getString(param,"addip","127.0.0.1"));
         paramList.add(DateUtils.getCurrentTimestamp());
-        paramList.add(MapUtils.getString(param,"require",""));
+        paramList.add(MapUtils.getString(param, "require", ""));
         paramList.add(MapUtils.getString(param,"postalcode",""));
-        String sqlSaveUser = "insert into `user_info`(`uid`,`name`,`phone`,`province`," +
-                "`city`,`detail_addr`,`addip`,`addtime`,`require`,`postalcode`) values(?,?,?,?,?,?,?,?,?,?)";
+        paramList.add(MapUtils.getString(param,"buid",""));
+        String sqlSaveUser = "update `user_info` set `name`=?,`phone`=?,`province`=?," +
+                "`city`=?,`detail_addr`=?,`addip`=?,`addtime`=?,`require`=?,`postalcode`=? where buid=?";
         int s = mysqlClient.update(sqlSaveUser,paramList.toArray());
         return s!=0;
     }
@@ -114,6 +113,11 @@ public class CartApiService implements CartApi {
         return s!=0;
     }
 
+    @Override
+    public boolean getValidAddr(String uid) {
+        return false;
+    }
+
     /**
      * 收货人地址列表
      *
@@ -121,7 +125,7 @@ public class CartApiService implements CartApi {
      */
     @Override
     public List<Map<String, Object>> userAddrList(String uid) {
-        String sqlForAddrList = "select id,uid,name,phone,province,city,detail_addr where uid=? ";
+        String sqlForAddrList = "select id,uid,name,phone,province,city,detail_addr from user_info where uid=? ";
         List<Map<String, Object>> addrList = mysqlClient.queryForList(sqlForAddrList, new Object[]{uid});
         return addrList;
     }
@@ -157,6 +161,13 @@ public class CartApiService implements CartApi {
         String sql = "update book_cart set payment=? where cart_id=? and uid=? and payment<=0 and should_pay<=? ";
         int s = mysqlClient.update(sql, new Object[]{payment, cart_id, uid, payment});
         return false;
+    }
+
+    @Override
+    public boolean insertBuid(String buid,String ip) {
+        String sql = "insert into user_info(uid,addip,addtime) values(?,?,?)";
+        int s = mysqlClient.update(sql,new Object[]{buid,ip});
+        return s!=0;
     }
 
     public double bookPrice(int id){

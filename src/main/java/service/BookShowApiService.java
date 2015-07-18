@@ -59,6 +59,21 @@ public class BookShowApiService implements BookShowApi{
     }
 
     /**
+     * 显示一本书的具体信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Map<String, Object> showOneBuyBook(int id) {
+        String sqlForOneBook = "SELECT bi.`id`, bi.`name`,bi.`describe`, bi.`path`, " +
+                "bi.`hot`, bi.`classify_id`, bi.`price`, bi.`freight`,bc.id classify_id,bc.name classify_name " +
+                "  FROM `book_info` bi left join book_class bc on(bi.classify_id=bc.id) where bi.status=1 and bi.id=? ";
+        Map<String,Object> oneBookInfo = mysqlClient.queryForMap(sqlForOneBook,new Object[]{id});
+        return oneBookInfo;
+    }
+
+    /**
      * 首页显示主要是分类和具体分类地址,分类轮播图
      *
      * @return

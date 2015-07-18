@@ -30,6 +30,12 @@ public interface BookShowApi {
      * @return
      */
     Map<String,Object> showOneBook(int id);
+    /**
+     * 显示一本书的具体信息
+     * @param id
+     * @return
+     */
+    Map<String,Object> showOneBuyBook(int id);
 
     /**
      * 首页显示主要是分类和具体分类地址,分类轮播图

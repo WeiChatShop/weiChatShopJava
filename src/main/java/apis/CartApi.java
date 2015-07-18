@@ -44,6 +44,7 @@ public interface CartApi {
      */
     boolean chooseAddr(int id,String uid);
 
+    boolean getValidAddr(String uid);
     /**
      * 收货人地址列表
      * @return
@@ -61,4 +62,5 @@ public interface CartApi {
      *更新购物车支付信息
      */
     boolean updateCartPayment(String uid,int cart_id,double payment);
+    boolean insertBuid(String buid,String ip);
 }

@@ -15,10 +15,5 @@ function showList(){
     }
 }
 function buyit(id){
-    $.ajax({
-        url:"/buynow/"+id,
-        dataType:'json',
-        success:function(data){
-        }
-    });
+   window.open("/buynow/"+id);
 }

@@ -1,5 +1,7 @@
 package utils;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +24,20 @@ public class Utils {
         return retMap;
     }
     public static int getUserId(HttpServletRequest request){
-        String userId = getCookie("userId",request);
+        String userId = getCookie("userId", request);
         if(!Validate.IsIntNumbers(userId)){
             return 0;
         }else {
             return Integer.parseInt(userId);
         }
+    }
+    public static String getBuid(String key, HttpServletRequest request){
+        String buid = getCookie("BUID", request);
+        if (StringUtils.isBlank(buid)) {
+            buid = "127001";
+        }
+        return buid;
+
     }
     public static void setCookie(String key, String value, int duration,HttpServletResponse response) {
         try {

@@ -5,16 +5,12 @@
 	<meta charset="UTF-8"/>
 	<title>支付</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-	<link rel="stylesheet" tylie="text/css" href="reset.css?t=57">
+	<link rel="stylesheet" tylie="text/css" href="../../../style/reset.css?t=57">
 	<link rel="stylesheet" tylie="text/css" href="../../../style/pay.css?t=57">
-	<!--cdn开始-->
-	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<!--cdn开始-->
 </head>
 <body>
+	<%@include file="../commons/common.jsp" %>
+	<%@include file="../commons/header.jsp" %>
 	<div class="buyWrap">
 		<!-- 收货地址开始 -->
 		<div class="addrWrap clearfix">
@@ -25,16 +21,18 @@
 			<!-- 基本信息开始 -->
 			<div>
 				<span class="lable" id="name">
-					收货人:赵明威
+					收货人:${cart.realname}
 				</span>
+			</div>
+			<div>
 				<span class="lable" id="phone">
-					电话:15313306298
+					电话:${cart.phone}
 				</span>
 			</div>
 			<!-- 基本信息结束-->
 			<!-- 具体地址开始 -->
 			<div class="address">
-				收货地址:北京市西城区新街口外大街普天德胜工业园区
+				收货地址:${cart.province},${cart.detail_addr}
 			</div>
 			<!-- 具体地址结束 -->
 			</div>
@@ -43,37 +41,32 @@
 		<!-- 商品详情开始 -->
 		<div class="goodDetailWrap clearfix">
 			<div class="imgWrap fl">
-				<img src="goods.jpg">
+				<img src="../${cart.path}">
 			</div>
 			<div class="desc">
 					<div class="descPrice">
 						<!-- 商品名称开始 -->
 						<span class="title" style="color:#000">
-							java编程思想
+							${cart.name}
 						</span>
 						<!-- 商品名称结束 -->
+						</div>
+					<div class="descPrice1">
 						<!-- 商品价格开始 -->
-						<span class="price">
-							￥20.00 
+						<span class="price1">
+							￥${cart.price}
 						</span>
 						<!-- 商品价格结束 -->
+						<span class="num">${cart.num}</span>
+						<img class="multi" src="../../../images/book/banner/multi.png">
 					</div>
-
-					<div class="descPrice">
-						<span style="color:#000">
-							预计三天内达到
-						</span>
-						<span class="num">3</span>
-						<img class="multi" src="../../../images/book/banner/multi.png"></img>
-					</div>
-
-					<div class="descPrice">
+					<div class="descPrice1">
 						<!-- 运费开始 -->
 						<span style="color:#000;position: relative;">
-							运费(根据具体地区而定)
+							运费(视地区而定)
 						</span>
 						<span class="carriage">
-							￥0.00
+							￥${cart.freight}
 						</span>
 						<!-- 运费结束 -->
 					</div>
@@ -85,12 +78,12 @@
 						合计
 					</span>
 					<span class="total">
-						￥40.00 + ￥0.00 
+						￥${cart.price*cart.num} + ￥${cart.freight}
 					</span>
 				</div>
 				<div style="position:relative;width:100%;text-align:center;color: #FF6633;">
 					<span >
-						需付:￥40.00
+						需付:￥${cart.should_pay}
 					</span>
 				</div>
 		</div>
@@ -101,5 +94,6 @@
 			</div>
 			<!-- 提交按钮结束 -->
 	</div>
+	<%@include file="../commons/footer.jsp" %>
 </body>
 </html>

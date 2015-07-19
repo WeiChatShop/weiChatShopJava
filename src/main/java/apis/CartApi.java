@@ -28,7 +28,7 @@ public interface CartApi {
      * @param param
      * @return
      */
-    boolean userInfoHold(Map<String,Object> param);
+    int userInfoHold(Map<String,Object> param);
 
     /**
      * 购物车编辑,包括删除
@@ -49,7 +49,11 @@ public interface CartApi {
      * 收货人地址列表
      * @return
      */
-    List<Map<String,Object>> userAddrList(String uid);
+    Map<String,Object> userAddrMap(String uid);
+
+    Map<String,Object> getCartById(int id,String buid);
+
+
 
     /**
      * 支付,更新account_log表
@@ -62,5 +66,23 @@ public interface CartApi {
      *更新购物车支付信息
      */
     boolean updateCartPayment(String uid,int cart_id,double payment);
+    /**
+     * 插入购买商品
+      */
+    int cartInsert(Map<String,Object> param);
+
+    /**
+     * 插入buid
+     * @param buid
+     * @param ip
+     * @return
+     */
     boolean insertBuid(String buid,String ip);
+
+    /**
+     * 修改地址
+     * @param param
+     * @return
+     */
+    boolean userInfoUpdate(Map<String,Object> param);
 }

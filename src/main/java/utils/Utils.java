@@ -34,7 +34,7 @@ public class Utils {
     public static String getBuid(String key, HttpServletRequest request){
         String buid = getCookie("BUID", request);
         if (StringUtils.isBlank(buid)) {
-            buid = "127001";
+            buid = "1270001";
         }
         return buid;
 

@@ -2,10 +2,15 @@ package service;
 
 import apis.CartApi;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Service;
 import utils.DateUtils;
 
 import javax.annotation.Resource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +32,7 @@ public class CartApiService implements CartApi {
     public List<Map<String, Object>> cartList(String uid) {
         String sqlForCartList =
                 "select bc.id,bc.uid,bc.book_id,bc.num,bc.should_pay,bi.price,bi.path,bi.name,bi.describe" +
-                        " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment<=0";
+                        ",bi.freight from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment<=0";
         List<Map<String, Object>> cartList = mysqlClient.queryForList(sqlForCartList,new Object[]{uid});
         return cartList;
     }
@@ -43,7 +48,7 @@ public class CartApiService implements CartApi {
         String sqlForCartHisList =
                 "select bc.id,bc.uid,bc.book_id,bc.num,bc.should_pay,bi.price,bi.path,bi.name,bi.describe,bc.payment" +
                         " from book_cart bc left join book_info bi on bc.book_id=bi.id  where bc.uid=? and bc.payment>0";
-        List<Map<String, Object>> cartHisList = mysqlClient.queryForList(sqlForCartHisList,new Object[]{uid});
+        List<Map<String, Object>> cartHisList = mysqlClient.queryForList(sqlForCartHisList, new Object[]{uid});
         return cartHisList;
     }
 
@@ -54,21 +59,62 @@ public class CartApiService implements CartApi {
      * @return
      */
     @Override
-    public boolean userInfoHold(Map<String, Object> param) {
+    public int userInfoHold(final Map<String, Object> param) {
         List paramList = new ArrayList();
+        paramList.add(MapUtils.getString(param,"buid",""));
         paramList.add(MapUtils.getString(param,"name",""));
         paramList.add(MapUtils.getString(param,"phone",""));
         paramList.add(MapUtils.getString(param,"province",""));
         paramList.add(MapUtils.getString(param,"city",""));
         paramList.add(MapUtils.getString(param,"detail_addr",""));
-        paramList.add(MapUtils.getString(param,"addip","127.0.0.1"));
+        paramList.add(MapUtils.getString(param, "addip", "127.0.0.1"));
         paramList.add(DateUtils.getCurrentTimestamp());
         paramList.add(MapUtils.getString(param, "require", ""));
-        paramList.add(MapUtils.getString(param,"postalcode",""));
-        paramList.add(MapUtils.getString(param,"buid",""));
-        String sqlSaveUser = "update `user_info` set `name`=?,`phone`=?,`province`=?," +
-                "`city`=?,`detail_addr`=?,`addip`=?,`addtime`=?,`require`=?,`postalcode`=? where buid=?";
+        paramList.add(MapUtils.getString(param, "postCode", ""));
+        final String sqlSaveUser = "insert into `user_info` (uid,`name`,`phone`,`province`," +
+                "`city`,`detail_addr`,`addip`,`addtime`,`require`,`postalcode`)values(?,?,?,?,?,?,?,?,?,?)";
         int s = mysqlClient.update(sqlSaveUser,paramList.toArray());
+//        final int s = mysqlClient.insertAndGetKey(
+//                new PreparedStatementCreator() {
+//                    @Override
+//                    public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//                        PreparedStatement ps = con.prepareStatement(sqlSaveUser, Statement.RETURN_GENERATED_KEYS);
+//                        ps.setString(1,MapUtils.getString(param,"buid",""));
+//                        ps.setString(2, MapUtils.getString(param, "name", ""));
+//                        ps.setString(3, MapUtils.getString(param, "phone", ""));
+//                        ps.setString(4, MapUtils.getString(param, "province", ""));
+//                        ps.setString(5, MapUtils.getString(param, "city", ""));
+//                        ps.setString(6, MapUtils.getString(param, "detail_addr", ""));
+//                        ps.setTimestamp(7, DateUtils.getCurrentTimestamp());
+//                        ps.setString(8, MapUtils.getString(param, "require", ""));
+//                        ps.setString(9, MapUtils.getString(param, "postCode", ""));
+//                        return ps;
+//                    }
+//                });
+        return s;
+    }
+ /**
+     * 收货人信息保存,同时增加收货人地址也可以用到
+     * 收货人信息包括
+     * @param param
+     * @return
+     */
+    @Override
+    public boolean userInfoUpdate(final Map<String, Object> param) {
+        List paramList = new ArrayList();
+        paramList.add(MapUtils.getString(param,"buid",""));
+        paramList.add(MapUtils.getString(param,"name",""));
+        paramList.add(MapUtils.getString(param,"phone",""));
+        paramList.add(MapUtils.getString(param,"province",""));
+        paramList.add(MapUtils.getString(param,"city",""));
+        paramList.add(MapUtils.getString(param,"detail_addr",""));
+        paramList.add(MapUtils.getString(param, "addip", "127.0.0.1"));
+        paramList.add(DateUtils.getCurrentTimestamp());
+        paramList.add(MapUtils.getString(param, "require", ""));
+        paramList.add(MapUtils.getString(param, "postCode", ""));
+        final String sqlSaveUser = "update  `user_info` set uid=?,`name`=?,`phone`=?,`province`=?," +
+                "`city`=?,`detail_addr`=?,`addip`=?,`addtime`=?,`require`=?,`postalcode`=?";
+        int s = mysqlClient.update(sqlSaveUser, paramList.toArray());
         return s!=0;
     }
 
@@ -124,10 +170,25 @@ public class CartApiService implements CartApi {
      * @return
      */
     @Override
-    public List<Map<String, Object>> userAddrList(String uid) {
-        String sqlForAddrList = "select id,uid,name,phone,province,city,detail_addr from user_info where uid=? ";
-        List<Map<String, Object>> addrList = mysqlClient.queryForList(sqlForAddrList, new Object[]{uid});
-        return addrList;
+    public Map<String,Object> userAddrMap(String uid) {
+        String sqlForAddrList = "select * from user_info where uid=? limit 1 ";
+        Map<String, Object> addrMap = mysqlClient.queryForMap(sqlForAddrList, new Object[]{uid});
+        return addrMap;
+    }
+
+    /**
+     * 获得购物车信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Map<String, Object> getCartById(int id,String buid) {
+        String sql = "select bc.id as cart_id ,bc.should_pay,bc.num,bi.price ," +
+                "bc.addtime,bc.send_status,bi.freight,bi.name,bi.path,bi.freight,ui.name as realname," +
+                "ui.id as ui_id,ui.phone,ui.province,ui.detail_addr from book_cart bc left join book_info bi " +
+                "on bc.book_id=bi.id left join user_info ui on bc.uid=ui.uid where bc.id=? and bc.uid=?";
+        Map<String, Object> cartMap = mysqlClient.queryForMap(sql,new Object[]{id,buid});
+        return cartMap;
     }
 
     /**
@@ -161,6 +222,41 @@ public class CartApiService implements CartApi {
         String sql = "update book_cart set payment=? where cart_id=? and uid=? and payment<=0 and should_pay<=? ";
         int s = mysqlClient.update(sql, new Object[]{payment, cart_id, uid, payment});
         return false;
+    }
+
+    /**
+     * 插入购买商品
+     *
+     * @param param
+     */
+    @Override
+    public int cartInsert(final Map<String, Object> param) {
+        List paramList = new ArrayList();
+        paramList.add(MapUtils.getString(param,"buid",""));
+        paramList.add(MapUtils.getIntValue(param, "addr_id", 0));
+        paramList.add(MapUtils.getIntValue(param, "book_id", 0));
+        paramList.add(MapUtils.getIntValue(param, "num", 1));
+        paramList.add(MapUtils.getDouble(param, "total", 0.00));
+        paramList.add(MapUtils.getString(param, "addip", "127.0.0.1"));
+        paramList.add(DateUtils.getCurrentTimestamp());
+        final String sql = "insert into book_cart(uid,addr_id,book_id,num,should_pay,addip,addtime)" +
+                " values(?,?,?,?,?,?,?)";
+        final int id = mysqlClient.insertAndGetKey(
+                new PreparedStatementCreator() {
+                    @Override
+                    public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                        ps.setString(1, MapUtils.getString(param, "buid", ""));
+                        ps.setInt(2, MapUtils.getIntValue(param, "addr_id", 0));
+                        ps.setInt(3, MapUtils.getIntValue(param, "book_id", 0));
+                        ps.setInt(4, MapUtils.getIntValue(param, "num", 1));
+                        ps.setDouble(5, MapUtils.getDouble(param, "total", 0.00));
+                        ps.setString(6, MapUtils.getString(param, "addip", "127.0.0.1"));
+                        ps.setTimestamp(7, DateUtils.getCurrentTimestamp());
+                        return ps;
+                    }
+                });
+        return id;
     }
 
     @Override

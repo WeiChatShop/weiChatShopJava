@@ -34,7 +34,7 @@ function classifyHtml(){
                     $("#classify_page").append('<div class="titleName"><span class="glyphicon glyphicon-star" style="color: #71F53C;">' +
                    '</span><a href="/one/'+bookClassList[i].id+'">'+bookClassList[i].name+'</a></div>');
                     $("#classify_page").append('<div class="describe">'+bookClassList[i].describe+'</div>');
-                    $("#classify_page").append('<div><a href="/one/'+bookClassList[i].id+'"><img src="../../../'+bookClassList[i].path+'"></a></div>');
+                    $("#classify_page").append('<div><a class="image-container" href="/one/'+bookClassList[i].id+'"><img src="../../../'+bookClassList[i].path+'"></a></div>');
                     $("#classify_page").append('</div>');
                 }
             }

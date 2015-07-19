@@ -31,7 +31,7 @@ public interface BookShowApi {
      */
     Map<String,Object> showOneBook(int id);
     /**
-     * 显示一本书的具体信息
+     * 显示一购买本书的具体信息
      * @param id
      * @return
      */

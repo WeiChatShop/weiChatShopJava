@@ -41,7 +41,6 @@ body{ font-family:"Microsoft Yahei"; background:#f8f8f8; color: #333; height:100
     display: inline;
     width:33%;
     height: 60px;
-    line-height: 80px;
     padding: 20px;
     border-left: solid 1px #d3d3d3;}
 .bookindex li.select{ background:#ff9900}
